@@ -58,6 +58,7 @@ functions = [tokenize, remove_stopwords, stem]
 TRAIN_SET_SIZE = 0.7
 
 def main():
+    print('Converting data to vectors...')
     x, y = read_data()
     for fun in functions:
         x = fun(x)

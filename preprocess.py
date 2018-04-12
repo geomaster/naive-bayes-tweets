@@ -40,6 +40,7 @@ fns = [ html_unescape, remove_mentions, remove_hashtags, fix_whitespace,
         handle_links, handle_punctuation, normalize_case ]
 
 def main():
+    print("Cleaning data...")
     X, y = load_dateset()
     length = len(X)
     j = 0

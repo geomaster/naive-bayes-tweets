@@ -25,7 +25,9 @@ def main():
     number_of_words = 5000
     classifier = NaiveBayesClassifier(number_of_words)
 
+    print("Training classifier...")
     classifier.train(x_train, y_train)
+    print("Testing classifier...")
     print('Accuracy:', classifier.get_accuracy(x_validation, y_validation) * 100)
 
 main()
