@@ -30,13 +30,13 @@ def freqdist_top_n(fd, n):
 
 def create_wordvec(words, tweet):
     freq = {}
-    for i, word in enumerate(tweet):
+    for word in tweet:
         try:
             j = words.index(word)
-            if i not in freq:
-                freq[i] = 1
+            if j not in freq:
+                freq[j] = 1
             else:
-                freq[i] += 1
+                freq[j] += 1
         except ValueError:
             continue
 
