@@ -5,7 +5,7 @@ from nltk import FreqDist
 from random import shuffle
 
 def read_data():
-    data = [x.split(';') for x in open('processed.txt', 'r').read().split('\n')[:-1]]
+    data = [x.split(';') for x in open('data/processed.txt', 'r').read().split('\n')[:-1]]
     x = [d[1] for d in data]
     y = [d[0] for d in data]
     return x, y
@@ -79,7 +79,7 @@ def main():
     fd = FreqDist([word for tweet in x_train for word in tweet])
     topwords = freqdist_top_n(fd, LIMIT)
 
-    output_dataset('train.txt', topwords, x_train, y_train)
-    output_dataset('validation.txt', topwords, x_validation, y_validation)
+    output_dataset('data/train.txt', topwords, x_train, y_train)
+    output_dataset('data/validation.txt', topwords, x_validation, y_validation)
 
 main()

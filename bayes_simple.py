@@ -19,8 +19,8 @@ def load_data(filename):
     return x, y
 
 def main():
-    x_train, y_train = load_data('train.txt')
-    x_validation, y_validation = load_data('validation.txt')
+    x_train, y_train = load_data('data/train.txt')
+    x_validation, y_validation = load_data('data/validation.txt')
 
     number_of_words = 5000
     classifier = NaiveBayesClassifier(number_of_words)

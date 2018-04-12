@@ -1,6 +1,7 @@
+import math
 class NaiveBayesClassifier:
     def __init__(self, num_words):
-        self.num_words_ = num_words
+        self.num_words = num_words
 
     def train(self, x, y):
         num_words = self.num_words

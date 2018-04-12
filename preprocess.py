@@ -4,7 +4,7 @@ import re
 
 def load_dateset():
     X, y = [], []
-    with open('train.csv', 'r', encoding='latin1') as csvfile:
+    with open('data/train.csv', 'r', encoding='latin1') as csvfile:
         reader = csv.reader(csvfile, delimiter=',', quotechar='"')
         next(reader, None) # Skip header
         for row in reader:
@@ -13,7 +13,7 @@ def load_dateset():
     return X, y
 
 def print_dataset(X, Y):
-    print("\n".join(["{};{}".format(y, x) for x, y in zip(X, Y)]))
+    print("\n".join(["{};{}".format(y, x) for x, y in zip(X, Y)]), file = open('data/processed.txt', 'w'))
 
 def html_unescape(x):
     return html.unescape(x)
