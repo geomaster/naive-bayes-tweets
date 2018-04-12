@@ -74,7 +74,7 @@ def main():
     x_train = [x for x, _ in train_set]
     y_train = [y for _, y in train_set]
     x_validation = [x for x, _ in validation_set]
-    y_validation = [x for _, y in validation_set]
+    y_validation = [y for _, y in validation_set]
 
     fd = FreqDist([word for tweet in x_train for word in tweet])
     topwords = freqdist_top_n(fd, LIMIT)
