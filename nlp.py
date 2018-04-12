@@ -2,9 +2,10 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
 from nltk import FreqDist
+from random import shuffle
 
 def read_data():
-    data = [x.split(';') for x in open('data.txt', 'r').read().split('\n')[:-1]]
+    data = [x.split(';') for x in open('processed.txt', 'r').read().split('\n')[:-1]]
     x = [d[1] for d in data]
     y = [d[0] for d in data]
     return x, y
@@ -45,18 +46,40 @@ def create_wordvec(words, tweet):
 def serialize_wordvec(vec):
     return ','.join(['{}={}'.format(k, v) for k, v in vec.items()])
 
+def output_dataset(filename, topwords, x, y):
+    with open(filename, 'w') as f:
+        length = len(x)
+        for i in range(length):
+            print('{};{}'.format(y[i], serialize_wordvec(create_wordvec(topwords,
+                x[i]))), file=f)
+
 functions = [tokenize, remove_stopwords, stem]
+
+TRAIN_SET_SIZE = 0.7
 
 def main():
     x, y = read_data()
     for fun in functions:
         x = fun(x)
 
-    fd = FreqDist([word for tweet in x for word in tweet])
+    # Split train from validation set
+    train_set_count = int(TRAIN_SET_SIZE * len(x))
+    #validation_set_count = len(x) - train_set_count
+    dataset = [(X, Y) for X, Y in zip(x, y)]
+    shuffle(dataset)
+
+    train_set = dataset[:train_set_count]
+    validation_set = dataset[train_set_count:]
+
+    x_train = [x for x, _ in train_set]
+    y_train = [y for _, y in train_set]
+    x_validation = [x for x, _ in validation_set]
+    y_validation = [x for _, y in validation_set]
+
+    fd = FreqDist([word for tweet in x_train for word in tweet])
     topwords = freqdist_top_n(fd, LIMIT)
 
-    length = len(x)
-    for i in range(length):
-        print('{};{}'.format(y[i], serialize_wordvec(create_wordvec(topwords, x[i]))))
+    output_dataset('train.txt', topwords, x_train, y_train)
+    output_dataset('validation.txt', topwords, x_validation, y_validation)
 
 main()
